@@ -8,7 +8,6 @@ import Lottie from '../../../components/other_components/Lottie';
 import TabBar from '../../../components/tab_components/TabBar';
 import {useTranslation} from 'react-i18next';
 import {useCustomModal} from '../../../components/other_components/Modal/CustomModal/CustomModalProvider';
-import SwitchLanguage from '../../../components/other_components/SwitchLanguage';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -40,13 +39,15 @@ const LoginScreen = () => {
     }
   }, [error]);
 
+  const handleRememberMe = () => {
+    // TODO: remember me
+  };
   return (
     <View style={styles.container}>
       {loading ? (
         <Lottie />
       ) : (
         <>
-          <SwitchLanguage />
           <TabBar />
           <View style={styles.logoContainer}>
             <Text style={styles.title}>{t('welcome')}</Text>
@@ -68,7 +69,11 @@ const LoginScreen = () => {
             secureTextEntry
             placeholderTextColor="#999"
           />
-
+          <TouchableOpacity
+            style={styles.rememberMe}
+            onPress={handleRememberMe}>
+            <Text style={styles.rememberMeText}>{t('rememberme')}</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleLogin}>
             <Text style={styles.buttonText}>{t('signin')}</Text>
           </TouchableOpacity>

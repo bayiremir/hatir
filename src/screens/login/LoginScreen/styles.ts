@@ -88,4 +88,14 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: Fonts.ExtraBold,
   },
+  rememberMe: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  rememberMeText: {
+    color: '#999',
+    fontSize: 16,
+    fontFamily: Fonts.Medium,
+  },
 });

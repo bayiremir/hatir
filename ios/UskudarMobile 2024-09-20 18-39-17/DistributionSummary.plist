@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>UskudarMobile.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>buildNumber</key>
+			<string>2</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>4132D3F23E06FC9070AA6C357CC3992C87F8BBBA</string>
+				<key>dateExpires</key>
+				<string>18.04.2025</string>
+				<key>type</key>
+				<string>Cloud Managed Apple Distribution</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>0.12.0</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>4132D3F23E06FC9070AA6C357CC3992C87F8BBBA</string>
+						<key>dateExpires</key>
+						<string>18.04.2025</string>
+						<key>type</key>
+						<string>Cloud Managed Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>hermes.framework</string>
+					<key>symbols</key>
+					<true/>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>W8RXDMMY4X</string>
+						<key>name</key>
+						<string>USKUDAR UNIVERSITESI</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>0.12.0</string>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>W8RXDMMY4X.com.manggis.uskudar</string>
+				<key>aps-environment</key>
+				<string>production</string>
+				<key>beta-reports-active</key>
+				<true/>
+				<key>com.apple.developer.applesignin</key>
+				<array>
+					<string>Default</string>
+				</array>
+				<key>com.apple.developer.associated-domains</key>
+				<array>
+					<string>applinks:uskudar.link</string>
+				</array>
+				<key>com.apple.developer.pass-type-identifiers</key>
+				<array/>
+				<key>com.apple.developer.team-identifier</key>
+				<string>W8RXDMMY4X</string>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>UskudarMobile.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>fe832d39-ea66-4c67-a4be-c0c05151badb</string>
+				<key>dateExpires</key>
+				<string>14.06.2025</string>
+				<key>name</key>
+				<string>iOS Team Store Provisioning Profile: com.manggis.uskudar</string>
+			</dict>
+			<key>symbols</key>
+			<true/>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>W8RXDMMY4X</string>
+				<key>name</key>
+				<string>USKUDAR UNIVERSITESI</string>
+			</dict>
+			<key>versionNumber</key>
+			<string>5.0.24</string>
+		</dict>
+	</array>
+</dict>
+</plist>

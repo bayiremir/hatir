@@ -5,6 +5,7 @@ import {GlobeAltIcon as GlobeAltIconSolid} from 'react-native-heroicons/solid';
 import {useCustomModal} from '../Modal/CustomModal/CustomModalProvider';
 import {Fonts} from '../../../interfaces/fonts.enum';
 import {storage} from '../../../utils/MMKV';
+import {COLORS} from '../../../constants/COLORS';
 
 const SwitchLanguage = () => {
   const {i18n} = useTranslation();
@@ -66,8 +67,8 @@ const styles = StyleSheet.create({
     right: 20,
     zIndex: 1,
     flexDirection: 'row',
+    backgroundColor: COLORS.greenLight,
     alignItems: 'center',
-    backgroundColor: '#4CAF50',
     borderRadius: 25,
     paddingVertical: 10,
     paddingHorizontal: 20,

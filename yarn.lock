@@ -2879,6 +2879,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-community/netinfo@npm:^11.4.0":
+  version: 11.4.0
+  resolution: "@react-native-community/netinfo@npm:11.4.0"
+  peerDependencies:
+    react-native: ">=0.59"
+  checksum: 634efa40917db1febb04b925658d1ee78bb612585a96533b477f8cbf989be5e4a6ed2b25d8fe24982cf95619467aed86a742a566b3d13393147fcbaf606cda26
+  languageName: node
+  linkType: hard
+
 "@react-native-firebase/app@npm:^20.5.0":
   version: 20.5.0
   resolution: "@react-native-firebase/app@npm:20.5.0"
@@ -2911,6 +2920,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-firebase/firestore@npm:^20.5.0":
+  version: 20.5.0
+  resolution: "@react-native-firebase/firestore@npm:20.5.0"
+  peerDependencies:
+    "@react-native-firebase/app": 20.5.0
+  checksum: d46e799a07a985eb477ecea1973d44d7316331f3244b2626468230c1f4c97f69f7724afeb7515aaddfa33ef3dd851689936b69dd447cbc3e45a59d90c779c6a2
+  languageName: node
+  linkType: hard
+
 "@react-native-masked-view/masked-view@npm:^0.3.1":
   version: 0.3.1
   resolution: "@react-native-masked-view/masked-view@npm:0.3.1"
@@ -2918,6 +2936,16 @@ __metadata:
     react: ">=16"
     react-native: ">=0.57"
   checksum: 880059020709ce856c448657c2d67a905f2ebcd3f42c1c4d344d732761cb2de98efb600172df5591d943f562393dbca42802e8a903b974aa2b038b441c5718fb
+  languageName: node
+  linkType: hard
+
+"@react-native-picker/picker@npm:^2.8.0":
+  version: 2.8.0
+  resolution: "@react-native-picker/picker@npm:2.8.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 43a1394831ef5fe568c9fc2cc6e7054e1c4d53b5de8ec4eb2deacaf5691fa0572920b9e4edaa97d692b38ac68161b1cbf3497a69bd26b49abae5c84bf3fe7087
   languageName: node
   linkType: hard
 
@@ -6168,9 +6196,12 @@ __metadata:
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
+    "@react-native-community/netinfo": ^11.4.0
     "@react-native-firebase/app": ^20.5.0
     "@react-native-firebase/auth": ^20.5.0
+    "@react-native-firebase/firestore": ^20.5.0
     "@react-native-masked-view/masked-view": ^0.3.1
+    "@react-native-picker/picker": ^2.8.0
     "@react-native/babel-preset": 0.75.3
     "@react-native/eslint-config": 0.75.3
     "@react-native/metro-config": 0.75.3
@@ -6190,6 +6221,7 @@ __metadata:
     react: 18.3.1
     react-i18next: ^14.0.5
     react-native: 0.75.3
+    react-native-device-info: ^13.0.0
     react-native-gesture-handler: ^2.19.0
     react-native-heroicons: ^4.0.0
     react-native-mmkv: ^2.12.1
@@ -9039,6 +9071,15 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 9d6d111d8990dc98bc5402c1266a808b0459b5d54830bbea24c12d908b536df7883f268a7868cfaedde3dd9d4e0d574db456f84d2e6df9c4526f99bb4b5344d8
+  languageName: node
+  linkType: hard
+
+"react-native-device-info@npm:^13.0.0":
+  version: 13.0.0
+  resolution: "react-native-device-info@npm:13.0.0"
+  peerDependencies:
+    react-native: "*"
+  checksum: c86822bcdad1bb9d3b93bd750e199964c562d83e076df2f0984e24cadd19db7f8258e125ddede102be2314ed8349d2da2b671c998f70571027b84449773c583a
   languageName: node
   linkType: hard
 
