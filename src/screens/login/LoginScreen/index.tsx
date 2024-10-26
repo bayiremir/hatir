@@ -2,35 +2,38 @@ import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {styles} from './styles';
-import {login} from '../../../redux/slices/authSlice';
+import {login, resetError} from '../../../redux/slices/authSlice';
 import {useNavigation} from '@react-navigation/native';
 import Lottie from '../../../components/other_components/Lottie';
 import TabBar from '../../../components/tab_components/TabBar';
 import {useTranslation} from 'react-i18next';
 import {useCustomModal} from '../../../components/other_components/Modal/CustomModal/CustomModalProvider';
+import CheckBox from '@react-native-community/checkbox';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false); // Remember Me state
   const dispatch = useDispatch();
   const {loading, error} = useSelector((state: any) => state.auth);
   const navigation = useNavigation<any>();
   const {t} = useTranslation();
   const {showModal, hideModal} = useCustomModal();
-  const handleLogin = () => {
-    dispatch<any>(login(email, password));
-  };
 
+  const handleLogin = () => {
+    dispatch<any>(login(email, password, rememberMe)); // Remember Me durumu da gönderiliyor
+  };
   useEffect(() => {
     if (error) {
       showModal({
-        type: 'warning',
+        type: 'error',
         description: error,
         buttons: [
           {
             text: 'Tamam',
             onPress: () => {
               hideModal();
+              dispatch(resetError()); // Modal kapatıldığında hatayı sıfırla
             },
             isFocused: true,
           },
@@ -39,9 +42,6 @@ const LoginScreen = () => {
     }
   }, [error]);
 
-  const handleRememberMe = () => {
-    // TODO: remember me
-  };
   return (
     <View style={styles.container}>
       {loading ? (
@@ -69,11 +69,18 @@ const LoginScreen = () => {
             secureTextEntry
             placeholderTextColor="#999"
           />
-          <TouchableOpacity
-            style={styles.rememberMe}
-            onPress={handleRememberMe}>
+
+          {/* Add Remember Me button*/}
+          <View style={styles.rememberMe}>
+            <CheckBox
+              onTintColor="green"
+              onCheckColor="green"
+              value={rememberMe}
+              onValueChange={setRememberMe}
+            />
             <Text style={styles.rememberMeText}>{t('rememberme')}</Text>
-          </TouchableOpacity>
+          </View>
+
           <TouchableOpacity style={styles.button} onPress={handleLogin}>
             <Text style={styles.buttonText}>{t('signin')}</Text>
           </TouchableOpacity>

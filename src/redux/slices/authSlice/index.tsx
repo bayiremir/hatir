@@ -7,6 +7,7 @@ const initialState = {
   loading: false,
   error: null,
   successMessage: null, // Başarılı işlemler için bir alan ekliyoruz
+  rememberMe: false,
 };
 
 const authSlice = createSlice({
@@ -17,10 +18,15 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    loginSuccess: state => {
+    loginSuccess: (state, action) => {
       state.isLoggedIn = true;
       state.loading = false;
-      storage.set('loginstatus', 'true'); // Durumu kalıcı hale getirmek için MMKV kullanıyoruz
+      state.rememberMe = action.payload.rememberMe;
+      storage.set('loginstatus', 'true');
+
+      if (action.payload.rememberMe) {
+        storage.set('userEmail', action.payload.email); // Eğer Remember Me işaretli ise email'i sakla
+      }
     },
     loginFailure: (state, action) => {
       state.loading = false;
@@ -28,7 +34,8 @@ const authSlice = createSlice({
     },
     logout: state => {
       state.isLoggedIn = false;
-      storage.set('loginstatus', 'false'); // Oturumu kapatırken durumu sıfırlıyoruz
+      storage.set('loginstatus', 'false');
+      storage.delete('userEmail'); // Oturum kapatılırken email'i sil
     },
     registerStart: state => {
       state.loading = true;
@@ -56,6 +63,9 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    resetError: state => {
+      state.error = null;
+    },
   },
 });
 
@@ -73,15 +83,16 @@ export const {
 } = authSlice.actions;
 
 // Login Fonksiyonu
-export const login = (email: any, password: any) => async (dispatch: any) => {
-  dispatch(loginStart());
-  try {
-    await auth().signInWithEmailAndPassword(email, password);
-    dispatch(loginSuccess());
-  } catch (error) {
-    dispatch(loginFailure(error.message));
-  }
-};
+export const login =
+  (email: any, password: any, rememberMe: boolean) => async (dispatch: any) => {
+    dispatch(loginStart());
+    try {
+      await auth().signInWithEmailAndPassword(email, password);
+      dispatch(loginSuccess({email, rememberMe}));
+    } catch (error) {
+      dispatch(loginFailure(error.message));
+    }
+  };
 
 // Register Fonksiyonu
 export const register =
@@ -104,6 +115,11 @@ export const sendPasswordResetEmail = (email: any) => async (dispatch: any) => {
   } catch (error) {
     dispatch(passwordResetFailure(error.message));
   }
+};
+
+// Hata Sıfırlama Fonksiyonu
+export const resetError = () => (dispatch: any) => {
+  dispatch(authSlice.actions.resetError());
 };
 
 export default authSlice.reducer;

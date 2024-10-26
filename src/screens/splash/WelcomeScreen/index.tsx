@@ -1,29 +1,45 @@
 import React from 'react';
-import {Text, View, TouchableOpacity, Image} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {styles} from './styles'; // Style dosyasını burada tanımlıyoruz.
-import {ArrowRightIcon as ArrowRightIconSolid} from 'react-native-heroicons/solid';
+import {PanGestureHandler} from 'react-native-gesture-handler';
+import Animated, {
+  useSharedValue,
+  useAnimatedGestureHandler,
+  withSpring,
+  runOnJS, // UI thread dışına yönlendirme için eklenir
+} from 'react-native-reanimated';
+import {styles} from './styles';
+
 const WelcomeScreen = () => {
   const navigation = useNavigation();
+  const translateX = useSharedValue(0);
 
-  const handleNext = () => {
-    navigation.navigate('ChangeLanguage'); // ChangeLanguageScreen'e yönlendirme
-  };
+  // Gesture handler to detect swiping
+  const gestureHandler = useAnimatedGestureHandler({
+    onActive: event => {
+      translateX.value = event.translationX;
+    },
+    onEnd: event => {
+      if (event.translationX < -50) {
+        // UI thread üzerinde olmayan fonksiyonları runOnJS ile çağır
+        runOnJS(navigation.navigate)('ChangeLanguage');
+      } else {
+        translateX.value = withSpring(0); // Eski konumuna dön
+      }
+    },
+  });
 
   return (
-    <View style={styles.container}>
-      <View style={styles.top}></View>
-      <Image
-        source={require('../../../../assets/appicon/greenlogo.png')}
-        style={styles.logo}
-      />
-      <Text style={styles.title}>Hoş Geldiniz!</Text>
-
-      <TouchableOpacity style={styles.arrowButton} onPress={handleNext}>
-        <ArrowRightIconSolid size={32} color={'black'} />
-      </TouchableOpacity>
-      <View style={styles.bottom}></View>
-    </View>
+    <PanGestureHandler onGestureEvent={gestureHandler}>
+      <Animated.View style={styles.container}>
+        <View style={styles.top}></View>
+        <Image
+          style={styles.logo}
+          source={require('../../../../assets/appicon/greenlogo.png')}
+        />
+        <View style={styles.bottom}></View>
+      </Animated.View>
+    </PanGestureHandler>
   );
 };
 

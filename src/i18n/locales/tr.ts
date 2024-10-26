@@ -6,6 +6,7 @@ const tr = {
   info: 'Bilgi',
   password: 'Şifre',
   forgetyorpassword: 'Şifreni mi unuttun',
+  rememberme: 'Beni Hatırla',
   forgetyorpasswordsubtitle: 'Şifreni sıfırlamak için e-posta adresini gir',
   resetpassword: 'Şifreyi Sıfırla',
   signin: 'Giriş Yap',
@@ -18,6 +19,9 @@ const tr = {
   name: 'İsim',
   confirmpassword: 'Şifreyi Onayla',
   login: 'Giriş Yap',
+  location: 'Konum',
+  populargift: 'Popüler Hediyeler',
+  viewall: 'Hepsini Gör',
 };
 
 export default tr;

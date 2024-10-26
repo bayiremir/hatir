@@ -73,8 +73,6 @@ const RegisterScreen = () => {
         </TouchableOpacity>
       )}
 
-      {error && <Text style={styles.errorText}>{error}</Text>}
-
       <TouchableOpacity
         onPress={() => navigation.navigate('Login')}
         style={styles.loginButton}>

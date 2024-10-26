@@ -1,22 +1,26 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import React from 'react';
-import {useDispatch} from 'react-redux';
-import {logout} from '../../../redux/slices/authSlice';
 import {styles} from './styles';
+import {useGetResturantQuery} from '../../../redux/services/mobileApi';
+import Lottie from '../../../components/other_components/Lottie';
+import GiftContainer from '../../../components/gift/GiftContainer';
+import HomeTabBar from '../../../components/home/HomeTabBar';
+import HomeTabHeaderBar from '../../../components/home/HomeTabHeaderBar';
 
 const HomeScreen = () => {
-  const dispatch = useDispatch();
-
-  const handleLogout = () => {
-    dispatch(logout());
-  };
+  const {data, isLoading} = useGetResturantQuery();
 
   return (
     <View style={styles.container}>
-      <Text>Welcome to the Home Screen!</Text>
-      <TouchableOpacity style={styles.button} onPress={handleLogout}>
-        <Text style={styles.buttonText}>Logout</Text>
-      </TouchableOpacity>
+      {isLoading ? (
+        <Lottie />
+      ) : (
+        <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}}>
+          <HomeTabBar />
+          <HomeTabHeaderBar data={data ?? []} />
+          <GiftContainer data={data ?? []} />
+        </ScrollView>
+      )}
     </View>
   );
 };

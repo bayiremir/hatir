@@ -6,6 +6,7 @@ const en = {
   info: 'Info',
   password: 'Password',
   forgetyorpassword: 'Forget your password',
+  rememberme: 'Remember Me',
   forgetyorpasswordsubtitle: 'Enter your email address to reset your password',
   resetpassword: 'Reset Password',
   signin: 'Sign In',
@@ -18,6 +19,9 @@ const en = {
   name: 'Name',
   confirmpassword: 'Confirm Password',
   login: 'Login',
+  location: 'Location',
+  populargift: 'Popular Gifts',
+  viewall: 'View All',
 };
 
 export default en;

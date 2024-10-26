@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {Fonts} from '../../../interfaces/fonts.enum';
+import {COLORS} from '../../../constants/COLORS';
 
 export const styles = StyleSheet.create({
   container: {
@@ -92,10 +93,15 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
+    marginLeft: 5,
   },
   rememberMeText: {
-    color: '#999',
+    color: '#333',
     fontSize: 16,
     fontFamily: Fonts.Medium,
+    marginLeft: 10,
+  },
+  checkbox: {
+    color: '#4CAF50',
   },
 });

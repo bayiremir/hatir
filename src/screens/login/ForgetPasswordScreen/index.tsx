@@ -8,7 +8,10 @@ import {
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {styles} from './styles';
-import {sendPasswordResetEmail} from '../../../redux/slices/authSlice'; // Firebase'den şifre sıfırlama fonksiyonu
+import {
+  resetError,
+  sendPasswordResetEmail,
+} from '../../../redux/slices/authSlice'; // Firebase'den şifre sıfırlama fonksiyonu
 import GoBackTabBar from '../../../components/tab_components/GoBackTabBar';
 import {useTranslation} from 'react-i18next';
 import {useCustomModal} from '../../../components/other_components/Modal/CustomModal/CustomModalProvider';
@@ -25,6 +28,7 @@ const ForgetPasswordScreen = () => {
   const handlePasswordReset = () => {
     dispatch<any>(sendPasswordResetEmail(email)); // E-posta ile şifre sıfırlama talebi gönderiyoruz
   };
+  console.log('forgerpasswordscreen erorr', error);
 
   useEffect(() => {
     if (error) {
@@ -36,6 +40,7 @@ const ForgetPasswordScreen = () => {
             text: 'Tamam',
             onPress: () => {
               hideModal();
+              dispatch(resetError());
             },
             isFocused: true,
           },
@@ -61,6 +66,7 @@ const ForgetPasswordScreen = () => {
       });
     }
   }, [successMessage]);
+
   return (
     <View style={styles.container}>
       <GoBackTabBar />

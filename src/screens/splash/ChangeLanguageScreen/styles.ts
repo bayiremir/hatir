@@ -1,66 +1,55 @@
 import {StyleSheet} from 'react-native';
+import {COLORS} from '../../../constants/COLORS';
 import {Fonts} from '../../../interfaces/fonts.enum';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    backgroundColor: '#f5f5f5',
-  },
-  logoContainer: {
-    alignItems: 'center',
-    marginBottom: 40,
-  },
-  logo: {
-    width: 120,
-    height: 120,
-    resizeMode: 'contain',
+    padding: 20,
+    backgroundColor: COLORS.lightGray,
   },
   title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333',
-    marginTop: 10,
-    fontFamily: Fonts.Medium,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#666',
-    marginTop: 5,
+    fontSize: 24,
+    textAlign: 'center',
     fontFamily: Fonts.Regular,
+    marginVertical: 20,
   },
-  languageButton: {
+  languageContainer: {
+    flexGrow: 1,
+    marginVertical: 20,
+  },
+  languageItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: '#ddd',
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 15,
-    marginVertical: 10,
-    alignItems: 'center',
-    width: '100%',
   },
-  languageButtonText: {
-    fontSize: 16,
-    color: '#333',
+  selectedLanguage: {
+    backgroundColor: '#e0f7fa',
+    borderColor: COLORS.greenLight,
+  },
+  flag: {
+    width: 30,
+    height: 20,
+    marginRight: 10,
+  },
+  languageLabel: {
+    fontSize: 18,
     fontFamily: Fonts.Medium,
-  },
-  languageButtonSelected: {
-    backgroundColor: '#4CAF50',
-    borderColor: '#4CAF50',
   },
   continueButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: COLORS.greenLight,
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 8,
     alignItems: 'center',
-    marginVertical: 20,
-    width: '100%',
+    marginVertical: 30,
   },
   continueButtonText: {
-    color: 'white',
-    fontSize: 16,
-    fontFamily: Fonts.Medium,
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
