@@ -4,9 +4,17 @@ import {
   userSliceInitialStateType,
   FirebaseUser,
 } from '../../../interfaces/user.interface';
-import {storage} from '../../../utils/MMKV'; // MMKV kullanımı için
+import {storage} from '../../../utils/MMKV';
 import auth from '@react-native-firebase/auth';
 
+const getDefaultDate = () => {
+  const storedDate = storage.getString('selectedDate'); // MMKV'den al
+  const today = new Date();
+  const formattedToday = `${today.getFullYear()}${String(
+    today.getMonth() + 1,
+  ).padStart(2, '0')}${String(today.getDate()).padStart(2, '0')}`;
+  return storedDate || formattedToday;
+};
 // Başlangıç durumu
 const initialState: userSliceInitialStateType = {
   firebaseUser: null,
@@ -14,6 +22,8 @@ const initialState: userSliceInitialStateType = {
   isLoggedIn: false,
   loading: false,
   error: null,
+  selectedDate: getDefaultDate(), // Varsayılan tarih fonksiyonu
+  selectedNews: '',
 };
 
 // userSlice yapısı
@@ -21,32 +31,35 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    // Firebase kullanıcı oturumu başladığında
     loginStart: state => {
       state.loading = true;
       state.error = null;
     },
-    // Giriş başarılı olduğunda
     loginSuccess: (state, action: PayloadAction<FirebaseUser>) => {
       state.firebaseUser = action.payload;
       state.isLoggedIn = true;
       state.loading = false;
-      storage.set('loginstatus', 'true'); // Durumu kalıcı hale getir
+      storage.set('loginstatus', 'true');
     },
-    // Giriş başarısız olduğunda
     loginFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
       state.error = action.payload;
     },
-    // Kullanıcı oturumu kapattığında
     logout: state => {
       state.firebaseUser = null;
       state.isLoggedIn = false;
-      storage.set('loginstatus', 'false'); // Oturumu kapat
+      storage.set('loginstatus', 'false');
     },
-    // Temayı değiştirme
     setTheme: (state, action: PayloadAction<'dark' | 'light'>) => {
       state.theme = action.payload;
+    },
+    setSelectedDate: (state, action: PayloadAction<string>) => {
+      state.selectedDate = action.payload;
+      // Tarihi MMKV'ye kaydet
+      storage.set('selectedDate', action.payload);
+    },
+    setSelectedNews: (state, action: PayloadAction<string>) => {
+      state.selectedNews = action.payload;
     },
   },
 });
@@ -84,5 +97,6 @@ export const logout = () => (dispatch: any) => {
 export const setTheme = (theme: 'dark' | 'light') => (dispatch: any) => {
   dispatch(userSlice.actions.setTheme(theme));
 };
+export const {setSelectedDate, setSelectedNews} = userSlice.actions;
 
 export default userSlice.reducer;

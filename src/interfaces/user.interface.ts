@@ -9,9 +9,11 @@ export interface FirebaseUser {
 }
 
 export interface userSliceInitialStateType {
-  firebaseUser: FirebaseUser | null; // Firebase kullanıcı bilgileri
-  theme: 'dark' | 'light'; // Tema bilgisi
-  isLoggedIn: boolean; // Kullanıcının giriş durumu
-  loading: boolean; // Yüklenme durumu
-  error: string | null; // Hata mesajı
+  firebaseUser: FirebaseUser | null;
+  theme: 'dark' | 'light';
+  isLoggedIn: boolean;
+  loading: boolean;
+  error: string | null;
+  selectedDate: string;
+  selectedNews: string;
 }
