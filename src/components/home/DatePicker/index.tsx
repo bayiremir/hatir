@@ -5,7 +5,7 @@ import {setSelectedDate} from '../../../redux/slices/userSlice';
 import {COLORS} from '../../../constants/COLORS';
 import {Fonts} from '../../../interfaces/fonts.enum';
 
-const DatePicker = () => {
+const DatePicker = ({onDateChange}) => {
   const days = ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'];
   const months = [
     'Oca',
@@ -21,13 +21,14 @@ const DatePicker = () => {
     'Kas',
     'Ara',
   ];
-  const currentDate = new Date(); // Orijinal tarih
+  const currentDate = new Date();
   const selectedDate = useSelector(
     (state: {user: {selectedDate: string}}) => state.user.selectedDate,
   );
   const dispatch = useDispatch();
+
   const getDayText = offset => {
-    const d = new Date(currentDate); // Her döngüde yeni bir tarih oluştur
+    const d = new Date(currentDate);
     d.setDate(d.getDate() + offset);
 
     const dayIndex = d.getDay();
@@ -42,13 +43,17 @@ const DatePicker = () => {
     return `${dayName} ${dayNumber} ${monthName}`;
   };
 
-  const dateOffsets = [-2, -1, 0, 1, 2, 3, 4, 5, 6];
+  const dateOffsets = [-2, -1, 0, 1, 2, 3, 4];
 
   const handleDateChange = offset => {
-    const newDate = new Date(currentDate); // Yeni bir tarih nesnesi oluştur
+    const newDate = new Date(currentDate);
     newDate.setDate(newDate.getDate() + offset);
     const formattedDate = newDate.toISOString().split('T')[0];
-    dispatch(setSelectedDate(formattedDate)); // Redux ve MMKV güncellemesi
+    console.log(`Selected date: ${formattedDate}`); // Log the selected date
+    dispatch(setSelectedDate(formattedDate)); // Redux'taki seçili tarihi güncelle
+    if (onDateChange) {
+      onDateChange(offset); // Tab.Navigator'daki sekme değişimini tetikle
+    }
   };
 
   return (
@@ -57,10 +62,10 @@ const DatePicker = () => {
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.container}>
       {dateOffsets.map((offset, index) => {
-        const dateToCompare = new Date(currentDate); // Karşılaştırma için yeni bir tarih
+        const dateToCompare = new Date(currentDate);
         dateToCompare.setDate(dateToCompare.getDate() + offset);
-        const isSelected =
-          selectedDate === dateToCompare.toISOString().split('T')[0];
+        const formattedDate = dateToCompare.toISOString().split('T')[0];
+        const isSelected = formattedDate === selectedDate; // Redux'taki tarih kontrolü
         return (
           <TouchableOpacity
             key={index}
@@ -78,6 +83,7 @@ const DatePicker = () => {
     </ScrollView>
   );
 };
+
 export default DatePicker;
 
 const styles = StyleSheet.create({

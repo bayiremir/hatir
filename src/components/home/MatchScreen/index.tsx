@@ -1,25 +1,21 @@
-import {FlatList, Image, Text, View} from 'react-native';
 import React from 'react';
+import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import {useGetLeagueMatchesByDateQuery} from '../../../redux/services/mobileApi';
-import {useSelector} from 'react-redux';
 import Lottie from '../../other_components/Lottie';
+import {useNavigation} from '@react-navigation/native';
 import {styles} from './styles';
 
-const MatchScreen = () => {
-  const selectedDate = useSelector(
-    (state: {user: {selectedDate: string}}) => state.user.selectedDate,
-  );
+const MatchScreen = ({selectedDate}) => {
   const formattedDate = selectedDate.replace(/-/g, '');
-
   const {data, isLoading} = useGetLeagueMatchesByDateQuery(formattedDate);
 
   const fixDate = (dateTime: string) => {
     const time = dateTime.split(' ')[1];
     return time;
   };
-
+  const navigation = useNavigation<any>();
   return (
-    <>
+    <View style={styles.container}>
       {isLoading ? (
         <Lottie />
       ) : (
@@ -43,7 +39,12 @@ const MatchScreen = () => {
                   const isLastMatch = index === item.matches.length - 1;
                   const showBorder = item.matches.length > 1 && !isLastMatch;
                   return (
-                    <View
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate('MatchDetailScreen', {
+                          matchId: match.id,
+                        });
+                      }}
                       key={index}
                       style={[
                         styles.singleMatchContainer,
@@ -58,9 +59,17 @@ const MatchScreen = () => {
                         }}
                         style={styles.imageteam}
                       />
-                      <Text style={styles.matchTextTime}>
-                        {fixDate(match.time)}
-                      </Text>
+                      {match.status.finished ||
+                      match.status.liveTime ||
+                      match.status.ongoing ? (
+                        <Text style={styles.matchTextTime}>
+                          {match.status.scoreStr}
+                        </Text>
+                      ) : (
+                        <Text style={styles.matchTextTime}>
+                          {fixDate(match.time)}
+                        </Text>
+                      )}
                       <Image
                         source={{
                           uri: `https://images.fotmob.com/image_resources/logo/teamlogo/${match.away.id}_large.png`,
@@ -70,7 +79,7 @@ const MatchScreen = () => {
                       <Text style={styles.matchTextLeft}>
                         {match.away.name}
                       </Text>
-                    </View>
+                    </TouchableOpacity>
                   );
                 })}
               </View>
@@ -78,7 +87,7 @@ const MatchScreen = () => {
           )}
         />
       )}
-    </>
+    </View>
   );
 };
 

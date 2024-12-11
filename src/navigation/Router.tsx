@@ -1,14 +1,13 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/tab/HomeScreen';
 import {COLORS} from '../constants/COLORS';
-import NewsScreen from '../screens/tab/NewsScreen';
 import LeagueScreen from '../screens/tab/LeagueScreen';
 import FollowScreen from '../screens/tab/FollowScreen';
 import MoreScreen from '../screens/tab/MoreScreen';
 import {Image} from 'react-native';
 import NewsStack from './stack/NewsStack';
+import HomeStack from './stack/HomeStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -27,7 +26,7 @@ const Router = () => {
         }}>
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={HomeStack}
           options={{
             tabBarLabel: 'Maçlar',
             tabBarIcon: ({color}) => (

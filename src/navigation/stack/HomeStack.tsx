@@ -1,15 +1,15 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../../screens/tab/HomeScreen';
-import GiftDetails from '../../components/gift/GiftDetails';
+import MatchDetailScreen from '../../components/home/MatchDetailScreen';
 
 const Stack = createStackNavigator();
 
 const HomeStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="GiftDetails" component={GiftDetails} />
+      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="MatchDetailScreen" component={MatchDetailScreen} />
     </Stack.Navigator>
   );
 };

@@ -8,12 +8,10 @@ import {storage} from '../../../utils/MMKV';
 import auth from '@react-native-firebase/auth';
 
 const getDefaultDate = () => {
-  const storedDate = storage.getString('selectedDate'); // MMKV'den al
-  const today = new Date();
-  const formattedToday = `${today.getFullYear()}${String(
-    today.getMonth() + 1,
-  ).padStart(2, '0')}${String(today.getDate()).padStart(2, '0')}`;
-  return storedDate || formattedToday;
+  // Eğer selectedDate depoda varsa, onu al. Yoksa bugünün tarihini döndür.
+  const storedDate = storage.getString('selectedDate');
+  const today = new Date().toISOString().split('T')[0];
+  return storedDate || today;
 };
 // Başlangıç durumu
 const initialState: userSliceInitialStateType = {
@@ -22,7 +20,7 @@ const initialState: userSliceInitialStateType = {
   isLoggedIn: false,
   loading: false,
   error: null,
-  selectedDate: getDefaultDate(), // Varsayılan tarih fonksiyonu
+  selectedDate: getDefaultDate(),
   selectedNews: '',
 };
 

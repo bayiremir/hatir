@@ -3,6 +3,7 @@ import {Fonts} from '../../../interfaces/fonts.enum';
 
 export const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'black',
     flex: 1,
   },
   matchContainer: {

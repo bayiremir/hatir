@@ -6,7 +6,6 @@ import {
   CalendarIcon as CalendarIconOutline,
 } from 'react-native-heroicons/outline';
 import {COLORS} from '../../../constants/COLORS';
-import DatePicker from '../DatePicker';
 
 const HomeTabBar = () => {
   return (
@@ -32,7 +31,6 @@ const HomeTabBar = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <DatePicker />
     </View>
   );
 };

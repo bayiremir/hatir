@@ -1,22 +1,40 @@
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
+import {
+  ChevronLeftIcon as ChevronLeftIconOutline,
+  BellAlertIcon as BellAlertIconOutline,
+  StarIcon as StarIconOutline,
+  ArrowUpOnSquareIcon as ArrowUpOnSquareIconOutline,
+} from 'react-native-heroicons/outline';
 import {useNavigation} from '@react-navigation/native';
-import {ChevronLeftIcon} from 'react-native-heroicons/outline';
 
 const GoBackTabBar = () => {
   const navigation = useNavigation<any>();
-
   return (
-    <View style={styles.background}>
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={styles.button}>
-        <ChevronLeftIcon color="black" size={28} />
-      </TouchableOpacity>
-      <Image
-        source={require('../../../../assets/appicon/greenlogo.png')}
-        style={styles.image}
-      />
+    <View style={styles.container}>
+      <View style={styles.tabBarContainer}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <ChevronLeftIconOutline color="white" size={24} />
+        </TouchableOpacity>
+        <View style={styles.iconContainer}>
+          <TouchableOpacity>
+            <ArrowUpOnSquareIconOutline
+              color="white"
+              size={24}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <BellAlertIconOutline color="white" size={24} style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <StarIconOutline color="white" size={24} style={styles.icon} />
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 };
@@ -24,28 +42,25 @@ const GoBackTabBar = () => {
 export default GoBackTabBar;
 
 const styles = StyleSheet.create({
-  background: {
+  container: {},
+  tabBarContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    position: 'absolute',
-    top: 50,
-    left: 0,
-    right: 0,
-    zIndex: 1,
+    marginHorizontal: 10,
+    paddingTop: 60,
+    marginVertical: 10,
   },
-  button: {
-    position: 'absolute',
-    left: 10,
-    justifyContent: 'center',
+  logo: {
+    width: 128,
+    height: 64,
   },
-  image: {
-    width: 200,
-    height: 100,
+  iconContainer: {
+    flexDirection: 'row',
+    marginRight: 10,
+    marginBottom: 10,
   },
-  text: {
-    fontSize: 20,
-    color: 'black',
+  icon: {
+    marginRight: 15,
   },
 });

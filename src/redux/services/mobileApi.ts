@@ -3,13 +3,15 @@ import {storage} from '../../utils/MMKV';
 import {LeagueMatchesByDate} from '../../interfaces/getleaguematchesbydate.enum';
 import {MatchesByDate} from '../../interfaces/getmatchesbydate.enum';
 import {TrandingNews} from '../../interfaces/gettrandingnews.enum';
+import {GetMatchDetailByEvent} from '../../interfaces/getmatchdetailbyevent.enum';
+import {GetMatchStatusByEvent} from '../../interfaces/getmatchstatusbyevent.enum';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://free-api-live-football-data.p.rapidapi.com/',
   prepareHeaders: async headers => {
     headers.set(
       'x-rapidapi-key',
-      '7e0c72b376msh4462df89671afefp100f59jsne96427a8cd11',
+      '28ec50c77bmsh4ec47e395d09f7ep16a762jsna4a84292f8ea',
     );
     headers.set(
       'x-rapidapi-host',
@@ -64,6 +66,18 @@ export const mobileApi = createApi({
         params: {leagueId, page: 1},
       }),
     }),
+    getMatchDetailByEventId: builder.query<GetMatchDetailByEvent, string>({
+      query: eventId => ({
+        url: `football-get-match-detail?eventid=${eventId}`,
+        method: 'GET',
+      }),
+    }),
+    getMatchStatusByEventId: builder.query<GetMatchStatusByEvent, string>({
+      query: eventId => ({
+        url: `football-get-match-status?eventid=${eventId}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -72,4 +86,6 @@ export const {
   useGetLeagueMatchesByDateQuery,
   useGetTrandingNewsQuery,
   useGetNewsByLeagueIdQuery,
+  useGetMatchDetailByEventIdQuery,
+  useGetMatchStatusByEventIdQuery,
 } = mobileApi;
