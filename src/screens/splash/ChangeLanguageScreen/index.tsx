@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import {storage} from '../../../utils/MMKV';
 import i18n from '../../../i18n';
 import {styles} from './styles';
@@ -39,7 +38,6 @@ const ChangeLanguageScreen = ({
 
   return (
     <View style={styles.container}>
-      <GoBackTabBar />
       <ScrollView
         contentContainerStyle={{paddingTop: 100}}
         style={styles.languageContainer}>

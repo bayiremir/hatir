@@ -49,14 +49,17 @@ const MatchDetailScreen = () => {
               {matchDetail?.response.detail.homeTeam.name}
             </Text>
           </View>
-          {matchStatus?.response.status.liveTime ? (
+          {matchStatus?.response.status.ongoing ||
+          matchStatus?.response.status.finished ? (
             <View style={{alignItems: 'center'}}>
               <Text style={styles.timetext}>
                 {matchStatus?.response.status.scoreStr}
               </Text>
-              <Text style={styles.scoretext}>
-                {matchStatus?.response.status.liveTime.long}
-              </Text>
+              {matchStatus?.response.status.liveTime && (
+                <Text style={styles.scoretext}>
+                  {matchStatus?.response.status.liveTime.long}
+                </Text>
+              )}
             </View>
           ) : (
             <Text style={styles.timetext}>

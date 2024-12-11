@@ -1,30 +1,41 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import SquadScreen from '../../components/match/SquadScreen';
 import TableScreen from '../../components/match/TableScreen';
 import MatchTabPicker from '../../components/match/MatchTabPicker';
 import {StyleSheet, View} from 'react-native';
+import OverviewScreen from '../../components/match/OverviewScreen';
 
 const Tab = createMaterialTopTabNavigator();
 
 const MatchTabs = () => {
+  const [activeTab, setActiveTab] = useState<string>('Overview');
+
   return (
     <Tab.Navigator
+      screenListeners={{
+        state: ({data}) => {
+          const index = data.state.index;
+          const tabRoutes = ['Overview', 'Squad', 'Table'];
+          setActiveTab(tabRoutes[index]);
+        },
+      }}
       screenOptions={{
-        tabBarStyle: {display: 'none'}, // Varsayılan Material Tab çubuğunu gizle
+        tabBarStyle: {display: 'none'},
       }}
       tabBar={({navigation}) => (
         <View style={styles.tabBar}>
           <MatchTabPicker
+            activeTab={activeTab}
             onTabChange={tabName => {
-              navigation.navigate(tabName); // Seçilen sekmeye geçiş yap
+              navigation.navigate(tabName);
             }}
           />
         </View>
       )}>
       <Tab.Screen
         name="Overview"
-        component={SquadScreen} // Örnek bileşen
+        component={OverviewScreen}
         options={{title: 'Önizleme'}}
       />
       <Tab.Screen

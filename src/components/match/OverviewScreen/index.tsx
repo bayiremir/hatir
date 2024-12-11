@@ -2,12 +2,12 @@ import {Text, View} from 'react-native';
 import React from 'react';
 import {styles} from './styles';
 
-const TableScreen = () => {
+const OverviewScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>index</Text>
+      <Text>asd</Text>
     </View>
   );
 };
 
-export default TableScreen;
+export default OverviewScreen;

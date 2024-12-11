@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: COLORS.lightGray,
+    backgroundColor: COLORS.macizWhite,
   },
   title: {
     fontSize: 24,
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
   },
   selectedLanguage: {
     backgroundColor: '#e0f7fa',
-    borderColor: COLORS.greenLight,
+    borderColor: COLORS.macizChiliRed,
   },
   flag: {
     width: 30,
@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Medium,
   },
   continueButton: {
-    backgroundColor: COLORS.greenLight,
+    backgroundColor: COLORS.macizChiliRed,
     padding: 15,
     borderRadius: 8,
     alignItems: 'center',

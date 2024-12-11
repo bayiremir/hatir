@@ -1,13 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ScrollView, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {COLORS} from '../../../constants/COLORS';
 import {Fonts} from '../../../interfaces/fonts.enum';
 
-const MatchTabPicker = ({onTabChange}) => {
-  const [selectedTab, setSelectedTab] = useState<string>('Overview'); // Varsayılan olarak Overview
-
+const MatchTabPicker = ({activeTab, onTabChange}) => {
   const handleTabPress = (tabName: string) => {
-    setSelectedTab(tabName); // Seçilen sekmeyi güncelle
     onTabChange(tabName); // Ana bileşene seçilen sekmeyi bildir
   };
 
@@ -21,13 +18,13 @@ const MatchTabPicker = ({onTabChange}) => {
           key={tab}
           style={[
             styles.dateContainer,
-            selectedTab === tab && styles.selectedContainer,
+            activeTab === tab && styles.selectedContainer, // Seçili sekme stili
           ]}
           onPress={() => handleTabPress(tab)}>
           <Text
             style={[
               styles.dateText,
-              selectedTab === tab && styles.selectedText,
+              activeTab === tab && styles.selectedText, // Seçili sekme metin stili
             ]}>
             {tab === 'Overview'
               ? 'Önizleme'
