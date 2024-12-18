@@ -1,16 +1,22 @@
 import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Dimensions,
+  TextInput,
+} from 'react-native';
 import {COLORS} from '../../../constants/COLORS';
 import {Fonts} from '../../../interfaces/fonts.enum';
 import {useDispatch} from 'react-redux';
 import {setSelectedNews} from '../../../redux/slices/userSlice';
-
 import Animated, {
   interpolate,
   useAnimatedStyle,
-  Extrapolate,
+  Extrapolation,
 } from 'react-native-reanimated';
 import {Text as RNText} from 'react-native';
+import {MagnifyingGlassIcon as MagnifyingGlassIconOutline} from 'react-native-heroicons/outline';
 
 const tabs = [
   {title: 'Senin için', key: 'foryou'},
@@ -18,10 +24,11 @@ const tabs = [
   {title: 'Transferler', key: 'transfers'},
   {title: 'Ligler', key: 'leagues'},
 ];
+const {width} = Dimensions.get('window');
 
 const HEADER_EXPANDED_HEIGHT = 140;
 
-const NewsTabBar = ({scrollY}) => {
+const NewsTabBar = ({scrollY, headerText}) => {
   const [selectedTab, setSelectedTab] = useState('foryou');
   const dispatch = useDispatch();
 
@@ -30,28 +37,32 @@ const NewsTabBar = ({scrollY}) => {
     dispatch(setSelectedNews(tabKey));
   };
 
-  // Sadece rowcontainer için animasyon
-  const rowAnimatedStyle = useAnimatedStyle(() => {
+  // Header font, pozisyon ve kayma animasyonu
+  const headerTextAnimatedStyle = useAnimatedStyle(() => {
+    const fontSize = interpolate(
+      scrollY.value,
+      [0, 5],
+      [24, 16],
+      Extrapolation.CLAMP,
+    );
+
     const translateY = interpolate(
       scrollY.value,
       [0, 100],
-      [0, -20], // Header küçülünce 20px yukarı kalksın
-      Extrapolate.CLAMP,
+      [0, 0],
+      Extrapolation.CLAMP,
     );
-    return {
-      transform: [{translateY}],
-    };
-  });
 
-  const headerTextAnimatedStyle = useAnimatedStyle(() => {
-    const opacity = interpolate(
+    const translateX = interpolate(
       scrollY.value,
       [0, 100],
-      [1, 0], // Header küçülünce opaklığı 0 olsun
-      Extrapolate.CLAMP,
+      [0, width / 2 - 60],
+      Extrapolation.CLAMP,
     );
+
     return {
-      opacity,
+      fontSize,
+      transform: [{translateX}, {translateY}],
     };
   });
 
@@ -59,31 +70,47 @@ const NewsTabBar = ({scrollY}) => {
     <View style={styles.container}>
       <View style={styles.innercontainer}>
         <Animated.Text style={[styles.header, headerTextAnimatedStyle]}>
-          Haberler
+          {headerText}
         </Animated.Text>
-        <Animated.View style={[styles.rowcontainer, rowAnimatedStyle]}>
-          {tabs.map((tab, index) => {
-            const isSelected = selectedTab === tab.key;
-            return (
-              <TouchableOpacity
-                key={index}
-                onPress={() => handleNewsChange(tab.key)}
-                style={styles.tabContainer}>
-                <RNText
-                  style={[
-                    styles.tabText,
-                    isSelected && {
-                      color: COLORS.macizWhite,
-                      fontFamily: Fonts.Medium,
-                    },
-                  ]}>
-                  {tab.title}
-                </RNText>
-                {isSelected && <View style={styles.indicatorLine} />}
-              </TouchableOpacity>
-            );
-          })}
-        </Animated.View>
+        {headerText === 'Haberler' && (
+          <View style={styles.rowcontainer}>
+            {tabs.map((tab, index) => {
+              const isSelected = selectedTab === tab.key;
+              return (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => handleNewsChange(tab.key)}
+                  style={styles.tabContainer}>
+                  <RNText
+                    style={[
+                      styles.tabText,
+                      isSelected && {
+                        color: COLORS.macizWhite,
+                        fontFamily: Fonts.Medium,
+                      },
+                    ]}>
+                    {tab.title}
+                  </RNText>
+                  {isSelected && <View style={styles.indicatorLine} />}
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        )}
+        {headerText === 'Ligler' && (
+          <View style={styles.searchcontainer}>
+            <MagnifyingGlassIconOutline
+              color={COLORS.macizWhite}
+              size={20}
+              style={styles.icon}
+            />
+            <TextInput
+              style={styles.searchInput}
+              placeholder={'Ligleri bul'}
+              placeholderTextColor={COLORS.macizWhite}
+            />
+          </View>
+        )}
       </View>
     </View>
   );
@@ -96,7 +123,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     overflow: 'hidden',
     justifyContent: 'flex-end',
-    height: HEADER_EXPANDED_HEIGHT, // Sabit yükseklik
+    height: HEADER_EXPANDED_HEIGHT,
   },
   tabContainer: {
     alignItems: 'center',
@@ -108,7 +135,6 @@ const styles = StyleSheet.create({
   header: {
     color: COLORS.macizWhite,
     fontFamily: Fonts.ExtraBold,
-    fontSize: 24,
   },
   tabText: {
     color: 'rgba(255, 255, 255, 0.7)',
@@ -126,9 +152,29 @@ const styles = StyleSheet.create({
   },
   rowcontainer: {
     flexDirection: 'row',
-    marginTop: 20,
   },
   innercontainer: {
     marginHorizontal: 20,
+  },
+  searchcontainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 20,
+    marginVertical: 5,
+    marginBottom: 10,
+  },
+  icon: {
+    marginLeft: 10,
+  },
+  searchText: {
+    color: COLORS.macizWhite,
+    fontFamily: Fonts.Regular,
+  },
+  searchInput: {
+    borderRadius: 10,
+    color: COLORS.macizWhite,
+    width: '70%',
+    padding: 10,
   },
 });

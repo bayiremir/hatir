@@ -81,6 +81,12 @@ const Router = () => {
           component={MoreScreen}
           options={{
             tabBarLabel: 'Daha fazla',
+            tabBarIcon: ({color}) => (
+              <Image
+                source={require('../../assets/icons/burger-menu.png')}
+                style={{width: 20, height: 20, tintColor: color}}
+              />
+            ),
           }}
         />
       </Tab.Navigator>

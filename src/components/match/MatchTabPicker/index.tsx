@@ -13,24 +13,23 @@ const MatchTabPicker = ({activeTab, onTabChange}) => {
       horizontal
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.container}>
-      {['Overview', 'Squad', 'Table'].map(tab => (
+      {['Overview', 'Squad', 'Table', 'HeadToHead'].map(tab => (
         <TouchableOpacity
           key={tab}
           style={[
             styles.dateContainer,
-            activeTab === tab && styles.selectedContainer, // Seçili sekme stili
+            activeTab === tab && styles.selectedContainer,
           ]}
           onPress={() => handleTabPress(tab)}>
           <Text
-            style={[
-              styles.dateText,
-              activeTab === tab && styles.selectedText, // Seçili sekme metin stili
-            ]}>
+            style={[styles.dateText, activeTab === tab && styles.selectedText]}>
             {tab === 'Overview'
               ? 'Önizleme'
               : tab === 'Squad'
               ? 'Kadro'
-              : 'Tablo'}
+              : tab === 'Table'
+              ? 'Tablo'
+              : 'Karşılaşmalar'}
           </Text>
         </TouchableOpacity>
       ))}
@@ -42,6 +41,7 @@ export default MatchTabPicker;
 
 const styles = StyleSheet.create({
   container: {
+    marginVertical: 10,
     flexDirection: 'row',
     paddingHorizontal: 10,
     alignItems: 'center',

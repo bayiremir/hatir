@@ -5,13 +5,18 @@ import {MatchesByDate} from '../../interfaces/getmatchesbydate.enum';
 import {TrandingNews} from '../../interfaces/gettrandingnews.enum';
 import {GetMatchDetailByEvent} from '../../interfaces/getmatchdetailbyevent.enum';
 import {GetMatchStatusByEvent} from '../../interfaces/getmatchstatusbyevent.enum';
+import {LeaguesListAll} from '../../interfaces/getleagueslistall.enum';
+import {GetMatchLocation} from '../../interfaces/getmatchlocationbyevent.enum';
+import {GetMatchReferee} from '../../interfaces/getmatchrefereebyevent.enum';
+import {GetLineUp} from '../../interfaces/getlineupbyevent.enum';
+import {GetLeagueDetail} from '../../interfaces/getleaguedetailbyleague.enum';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://free-api-live-football-data.p.rapidapi.com/',
   prepareHeaders: async headers => {
     headers.set(
       'x-rapidapi-key',
-      '28ec50c77bmsh4ec47e395d09f7ep16a762jsna4a84292f8ea',
+      '980ea8bb6dmsh585fbc03927a4f3p174855jsna243768a9c26',
     );
     headers.set(
       'x-rapidapi-host',
@@ -39,14 +44,14 @@ export const mobileApi = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithCheck,
   endpoints: builder => ({
-    getMatchesByDate: builder.query<MatchesByDate, string>({
+    getMatchesByDate: builder.query<MatchesByDate, void>({
       query: date => ({
         url: 'football-get-matches-by-date',
         method: 'GET',
         params: {date},
       }),
     }),
-    getLeagueMatchesByDate: builder.query<LeagueMatchesByDate, string>({
+    getLeagueMatchesByDate: builder.query<LeagueMatchesByDate, void>({
       query: date => ({
         url: 'football-get-matches-by-date-and-league',
         method: 'GET',
@@ -59,22 +64,58 @@ export const mobileApi = createApi({
         method: 'GET',
       }),
     }),
-    getNewsByLeagueId: builder.query<TrandingNews, string>({
+    getNewsByLeagueId: builder.query<TrandingNews, void>({
       query: leagueId => ({
         url: 'football-get-news-by-league-id',
         method: 'GET',
         params: {leagueId, page: 1},
       }),
     }),
-    getMatchDetailByEventId: builder.query<GetMatchDetailByEvent, string>({
+    getMatchDetailByEventId: builder.query<GetMatchDetailByEvent, void>({
       query: eventId => ({
         url: `football-get-match-detail?eventid=${eventId}`,
         method: 'GET',
       }),
     }),
-    getMatchStatusByEventId: builder.query<GetMatchStatusByEvent, string>({
+    getMatchStatusByEventId: builder.query<GetMatchStatusByEvent, void>({
       query: eventId => ({
         url: `football-get-match-status?eventid=${eventId}`,
+        method: 'GET',
+      }),
+    }),
+    getLeaguesListAll: builder.query<LeaguesListAll, void>({
+      query: () => ({
+        url: 'football-get-all-leagues',
+        method: 'GET',
+      }),
+    }),
+    getMatchLocationByEventId: builder.query<GetMatchLocation, void>({
+      query: eventId => ({
+        url: `football-get-match-location?eventid=${eventId}`,
+        method: 'GET',
+      }),
+    }),
+    getMatchRefereeByEventId: builder.query<GetMatchReferee, void>({
+      query: eventId => ({
+        url: `football-get-match-referee?eventid=${eventId}`,
+        method: 'GET',
+      }),
+    }),
+    getLineupHomeTeamByEventId: builder.query<GetLineUp, void>({
+      query: eventId => ({
+        url: `football-get-hometeam-lineup?eventid=${eventId}`,
+        method: 'GET',
+      }),
+    }),
+    getLineupAwayTeamByEventId: builder.query<GetLineUp, void>({
+      query: eventId => ({
+        url: `football-get-awayteam-lineup?eventid=${eventId}`,
+        method: 'GET',
+      }),
+    }),
+    getLeagueDetailByLeagueId: builder.query<GetLeagueDetail, void>({
+      query: leagueId => ({
+        url: `football-get-league-detail?leagueid=${leagueId}`,
         method: 'GET',
       }),
     }),
@@ -88,4 +129,10 @@ export const {
   useGetNewsByLeagueIdQuery,
   useGetMatchDetailByEventIdQuery,
   useGetMatchStatusByEventIdQuery,
+  useGetLeaguesListAllQuery,
+  useGetMatchLocationByEventIdQuery,
+  useGetMatchRefereeByEventIdQuery,
+  useGetLineupHomeTeamByEventIdQuery,
+  useGetLineupAwayTeamByEventIdQuery,
+  useGetLeagueDetailByLeagueIdQuery,
 } = mobileApi;

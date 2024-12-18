@@ -26,9 +26,6 @@ const WebViewNews = () => {
     finalUrl = finalUrl.replace(/\/embed\/news\/[^/]+\//, '/');
   }
 
-  console.log('sourceStr:', sourceStr);
-  console.log('finalUrl:', finalUrl);
-
   return <WebView source={{uri: finalUrl}} style={{flex: 1}} />;
 };
 

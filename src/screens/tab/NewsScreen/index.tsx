@@ -6,8 +6,6 @@ import NewsShow from '../../../components/news/NewsShow';
 import {useGetTrandingNewsQuery} from '../../../redux/services/mobileApi';
 import Lottie from '../../../components/other_components/Lottie';
 import NewsTabBar from '../../../components/news/NewsTabBar';
-
-// Reanimated importları
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
@@ -25,7 +23,7 @@ const NewsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <NewsTabBar scrollY={scrollY} />
+      <NewsTabBar headerText={'Haberler'} scrollY={scrollY} />
       {isLoading ? (
         <Lottie />
       ) : (

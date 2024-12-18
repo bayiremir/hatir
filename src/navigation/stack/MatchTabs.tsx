@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import SquadScreen from '../../components/match/SquadScreen';
-import TableScreen from '../../components/match/TableScreen';
 import MatchTabPicker from '../../components/match/MatchTabPicker';
 import {StyleSheet, View} from 'react-native';
-import OverviewScreen from '../../components/match/OverviewScreen';
+import OverviewScreen from '../../screens/match/OverviewScreen';
+import SquadScreen from '../../screens/match/SquadScreen';
+import TableScreen from '../../screens/match/TableScreen';
+import HeadToHeadScreen from '../../screens/match/HeadToHeadScreen';
 
 const Tab = createMaterialTopTabNavigator();
 
-const MatchTabs = () => {
+const MatchTabs = ({data}) => {
   const [activeTab, setActiveTab] = useState<string>('Overview');
 
   return (
@@ -16,7 +17,7 @@ const MatchTabs = () => {
       screenListeners={{
         state: ({data}) => {
           const index = data.state.index;
-          const tabRoutes = ['Overview', 'Squad', 'Table'];
+          const tabRoutes = ['Overview', 'Squad', 'Table', 'HeadToHead'];
           setActiveTab(tabRoutes[index]);
         },
       }}
@@ -35,11 +36,13 @@ const MatchTabs = () => {
       )}>
       <Tab.Screen
         name="Overview"
+        initialParams={{data}}
         component={OverviewScreen}
         options={{title: 'Önizleme'}}
       />
       <Tab.Screen
         name="Squad"
+        initialParams={{data}}
         component={SquadScreen}
         options={{title: 'Kadro'}}
       />
@@ -47,6 +50,11 @@ const MatchTabs = () => {
         name="Table"
         component={TableScreen}
         options={{title: 'Tablo'}}
+      />
+      <Tab.Screen
+        name="HeadToHead"
+        component={HeadToHeadScreen}
+        options={{title: 'Karşılaşmalar'}}
       />
     </Tab.Navigator>
   );

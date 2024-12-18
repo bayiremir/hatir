@@ -5,7 +5,7 @@ import {COLORS} from '../../../constants/COLORS';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.macizCinnabar,
+    backgroundColor: COLORS.macizBlack,
   },
   imageteam: {
     width: 50,
@@ -15,6 +15,8 @@ export const styles = StyleSheet.create({
     color: 'white',
     fontFamily: Fonts.Regular,
     marginTop: 5,
+    width: 130,
+    textAlign: 'center',
   },
   timetext: {
     color: 'white',

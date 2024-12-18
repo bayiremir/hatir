@@ -28,7 +28,6 @@ const ForgetPasswordScreen = () => {
   const handlePasswordReset = () => {
     dispatch<any>(sendPasswordResetEmail(email)); // E-posta ile şifre sıfırlama talebi gönderiyoruz
   };
-  console.log('forgerpasswordscreen erorr', error);
 
   useEffect(() => {
     if (error) {
