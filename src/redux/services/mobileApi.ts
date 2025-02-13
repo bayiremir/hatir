@@ -16,7 +16,7 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: async headers => {
     headers.set(
       'x-rapidapi-key',
-      '980ea8bb6dmsh585fbc03927a4f3p174855jsna243768a9c26',
+      '6d4f6c9892msh7fe11ebc286b9d1p128079jsn321066934e13',
     );
     headers.set(
       'x-rapidapi-host',

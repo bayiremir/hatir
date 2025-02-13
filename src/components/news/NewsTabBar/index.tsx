@@ -3,18 +3,15 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  Dimensions,
   TextInput,
+  Text,
+  Dimensions,
 } from 'react-native';
 import {COLORS} from '../../../constants/COLORS';
 import {Fonts} from '../../../interfaces/fonts.enum';
 import {useDispatch} from 'react-redux';
 import {setSelectedNews} from '../../../redux/slices/userSlice';
-import Animated, {
-  interpolate,
-  useAnimatedStyle,
-  Extrapolation,
-} from 'react-native-reanimated';
+
 import {Text as RNText} from 'react-native';
 import {MagnifyingGlassIcon as MagnifyingGlassIconOutline} from 'react-native-heroicons/outline';
 
@@ -24,11 +21,8 @@ const tabs = [
   {title: 'Transferler', key: 'transfers'},
   {title: 'Ligler', key: 'leagues'},
 ];
-const {width} = Dimensions.get('window');
 
-const HEADER_EXPANDED_HEIGHT = 140;
-
-const NewsTabBar = ({scrollY, headerText}) => {
+const NewsTabBar = ({headerText}) => {
   const [selectedTab, setSelectedTab] = useState('foryou');
   const dispatch = useDispatch();
 
@@ -38,40 +32,11 @@ const NewsTabBar = ({scrollY, headerText}) => {
   };
 
   // Header font, pozisyon ve kayma animasyonu
-  const headerTextAnimatedStyle = useAnimatedStyle(() => {
-    const fontSize = interpolate(
-      scrollY.value,
-      [0, 5],
-      [24, 16],
-      Extrapolation.CLAMP,
-    );
-
-    const translateY = interpolate(
-      scrollY.value,
-      [0, 100],
-      [0, 0],
-      Extrapolation.CLAMP,
-    );
-
-    const translateX = interpolate(
-      scrollY.value,
-      [0, 100],
-      [0, width / 2 - 60],
-      Extrapolation.CLAMP,
-    );
-
-    return {
-      fontSize,
-      transform: [{translateX}, {translateY}],
-    };
-  });
 
   return (
     <View style={styles.container}>
       <View style={styles.innercontainer}>
-        <Animated.Text style={[styles.header, headerTextAnimatedStyle]}>
-          {headerText}
-        </Animated.Text>
+        <Text style={[styles.header]}>{headerText}</Text>
         {headerText === 'Haberler' && (
           <View style={styles.rowcontainer}>
             {tabs.map((tab, index) => {
@@ -123,7 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     overflow: 'hidden',
     justifyContent: 'flex-end',
-    height: HEADER_EXPANDED_HEIGHT,
+    height: Dimensions.get('window').height * 0.2 - 50,
   },
   tabContainer: {
     alignItems: 'center',
@@ -135,6 +100,7 @@ const styles = StyleSheet.create({
   header: {
     color: COLORS.macizWhite,
     fontFamily: Fonts.ExtraBold,
+    fontSize: 24,
   },
   tabText: {
     color: 'rgba(255, 255, 255, 0.7)',

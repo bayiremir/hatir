@@ -17,10 +17,10 @@ const HighlightNews = ({data}) => {
 
         <View style={styles.innerContainer}>
           <Image
-            source={{uri: data.imageUrl}}
+            source={{uri: data?.imageUrl}}
             style={styles.innerContainerImage}
           />
-          <Text style={styles.innerContainerText}>{data.title}</Text>
+          <Text style={styles.innerContainerText}>{data?.title}</Text>
         </View>
       </View>
     </View>

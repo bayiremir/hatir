@@ -1,12 +1,10 @@
 import React from 'react';
 import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
-import {
-  useGetLeagueDetailByLeagueIdQuery,
-  useGetMatchesByDateQuery,
-} from '../../../redux/services/mobileApi';
+import {useGetMatchesByDateQuery} from '../../../redux/services/mobileApi';
 import Lottie from '../../other_components/Lottie';
 import {useNavigation} from '@react-navigation/native';
 import {styles} from './styles';
+import allLeagues from '../../../utils/leagues.json';
 
 const MatchScreen = ({selectedDate}) => {
   const formattedDate = selectedDate.replace(/-/g, '');
@@ -18,46 +16,18 @@ const MatchScreen = ({selectedDate}) => {
   const fixDate = (dateTime: string) => dateTime.split(' ')[1];
 
   // Benzersiz Lig ID'lerini alma
-  const leagueIds = React.useMemo(() => {
-    if (!matchData?.response?.matches) return [];
-    return [
-      ...new Set(matchData.response.matches.map(match => match.leagueId)),
-    ];
-  }, [matchData]);
 
-  // Lig detaylarını toplamak için custom state ve efekti kullanma
-  const [leagueDetails, setLeagueDetails] = React.useState<
-    Record<string, string>
-  >({});
-  const [loadingLeagues, setLoadingLeagues] = React.useState(true);
-
-  React.useEffect(() => {
-    const fetchLeagueDetails = async () => {
-      setLoadingLeagues(true);
-      const details: Record<string, string> = {};
-
-      for (const leagueId of leagueIds) {
-        try {
-          const {data} = await useGetLeagueDetailByLeagueIdQuery(
-            leagueId,
-          ).refetch();
-          if (data?.response?.name) {
-            details[leagueId] = data.response.name;
-          } else {
-            details[leagueId] = 'Bilinmeyen Lig';
-          }
-        } catch (error) {
-          console.error(`Error fetching league ${leagueId}:`, error);
-          details[leagueId] = 'Lig Yüklenemedi';
-        }
+  // Ligin adını leagues.json'dan alma
+  // Ligin adını leagues.json'dan alma
+  const getLeagueNameById = leagueId => {
+    for (const country of allLeagues.response.leagues) {
+      const league = country.leagues.find(league => league.id === leagueId);
+      if (league) {
+        return league.name;
       }
-
-      setLeagueDetails(details);
-      setLoadingLeagues(false);
-    };
-
-    if (leagueIds.length > 0) fetchLeagueDetails();
-  }, [leagueIds]);
+    }
+    return 'Lig Yükleniyor...';
+  };
 
   // Maçları liglere göre gruplama
   const groupedMatches = React.useMemo(() => {
@@ -69,7 +39,7 @@ const MatchScreen = ({selectedDate}) => {
         acc[leagueId] = {
           leagueId,
           matches: [],
-          leagueName: leagueDetails[leagueId] || 'Lig Yükleniyor...',
+          leagueName: getLeagueNameById(leagueId),
         };
       }
       acc[leagueId].matches.push(match);
@@ -77,11 +47,11 @@ const MatchScreen = ({selectedDate}) => {
     }, {});
 
     return Object.values(groups);
-  }, [matchData, leagueDetails]);
+  }, [matchData]);
 
   return (
     <View style={styles.container}>
-      {matchesLoading || loadingLeagues ? (
+      {matchesLoading ? (
         <Lottie />
       ) : (
         <FlatList

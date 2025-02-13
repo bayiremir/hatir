@@ -28,10 +28,10 @@ const NewsScreen = () => {
         <Lottie />
       ) : (
         <Animated.ScrollView onScroll={onScroll} scrollEventThrottle={16}>
-          <HighlightNews data={data?.response.news[0]} />
-          <NewsShow data={data?.response.news} />
-          <NewsShow data={data?.response.news} />
-          <NewsShow data={data?.response.news} />
+          <HighlightNews data={data?.response?.news[0]} />
+          <NewsShow data={data?.response?.news} />
+          <NewsShow data={data?.response?.news} />
+          <NewsShow data={data?.response?.news} />
         </Animated.ScrollView>
       )}
     </View>
